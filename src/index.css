@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* فونت وزیرمتن (درون برنامه بسته‌بندی می‌شود تا آفلاین هم کار کند) */
+@font-face {
+  font-family: "Vazirmatn Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../node_modules/@fontsource-variable/vazirmatn/files/vazirmatn-arabic-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF,
+    U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+  font-family: "Vazirmatn Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../node_modules/@fontsource-variable/vazirmatn/files/vazirmatn-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B,
+    U+200F-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  --font-sans: "Vazirmatn Variable", Vazirmatn, Tahoma, "Segoe UI", system-ui, sans-serif;
+
+  --color-paper: #f4f3ee;
+  --color-surface: #ffffff;
+  --color-line: #e2e0d7;
+  --color-ink: #1e2330;
+  --color-muted: #626776;
+
+  --color-brand: #2d4b9a;
+  --color-brand-strong: #223c80;
+  --color-brand-soft: #e8edf9;
+
+  --color-ok: #176f49;
+  --color-ok-soft: #e3f3eb;
+  --color-warn: #8f5508;
+  --color-warn-soft: #fbf0dc;
+  --color-bad: #b93a34;
+  --color-bad-soft: #fbe9e7;
+
+  --animate-fade: fade 0.15s ease-out;
+  --animate-rise: rise 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button,
+  select,
+  [role="button"] {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #c9c6ba transparent;
+  }
+  #print-root {
+    display: none;
+  }
+}
+
+/* اعداد، ساعت و تاریخ همیشه چپ‌به‌راست و هم‌عرض نمایش داده شوند */
+@utility num {
+  display: inline-block;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* چاپ: فقط گزارش دیده شود */
+@page {
+  size: A4;
+  margin: 14mm;
+}
+@media print {
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+  #root {
+    display: none !important;
+  }
+  #print-root {
+    display: block !important;
+  }
+}
